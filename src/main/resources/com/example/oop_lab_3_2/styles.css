@@ -1,0 +1,43 @@
+.root {
+    -fx-background-color: #f5f5f5;
+}
+
+.header-label {
+    -fx-text-fill: #2c3e50;
+}
+
+.number-field {
+    -fx-alignment: CENTER;
+    -fx-pref-width: 150px;
+    -fx-font-size: 14px;
+}
+
+.number-spinner {
+    -fx-pref-width: 150px;
+    -fx-alignment: CENTER;
+}
+
+.number-spinner .text-field {
+    -fx-alignment: CENTER;
+}
+
+.number-slider {
+    -fx-pref-width: 150px;
+    -fx-show-tick-labels: true;
+    -fx-show-tick-marks: true;
+}
+
+.number-slider .track {
+    -fx-background-color: #3498db;
+}
+
+.number-slider .thumb {
+    -fx-background-color: #2980b9;
+}
+
+/* Стили для полей при фокусе */
+.number-field:focused,
+.number-spinner:focused,
+.number-slider:focused {
+    -fx-effect: dropshadow(three-pass-box, rgba(52,152,219,0.4), 10, 0, 0, 0);
+}

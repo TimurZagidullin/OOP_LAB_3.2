@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="CENTER" hgap="10" prefHeight="400" prefWidth="600" stylesheets="@styles.css" vgap="10" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oop_lab_3_2.Controller">
+
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="150" prefWidth="200" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="150" prefWidth="200" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="150" prefWidth="200" />
+    </columnConstraints>
+
+    <rowConstraints>
+        <RowConstraints minHeight="50" prefHeight="70" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="50" prefHeight="70" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="50" prefHeight="70" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="50" prefHeight="70" vgrow="SOMETIMES" />
+    </rowConstraints>
+
+    <!-- Заголовки с отображением значений -->
+    <Label fx:id="labelA" styleClass="header-label" text="A = 0" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <font>
+            <Font name="System Bold" size="36.0" />
+        </font>
+    </Label>
+    <Label fx:id="labelB" styleClass="header-label" text="B = 50" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <font>
+            <Font name="System Bold" size="36.0" />
+        </font>
+    </Label>
+    <Label fx:id="labelC" styleClass="header-label" text="C = 100" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
+        <font>
+            <Font name="System Bold" size="36.0" />
+        </font>
+    </Label>
+
+    <!-- Текстовые поля -->
+    <TextField fx:id="textFieldA" styleClass="number-field" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField fx:id="textFieldB" styleClass="number-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <TextField fx:id="textFieldC" styleClass="number-field" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+    <!-- Спиннеры -->
+    <Spinner fx:id="spinA" styleClass="number-spinner" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+    <Spinner fx:id="spinB" styleClass="number-spinner" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+    <Spinner fx:id="spinC" styleClass="number-spinner" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+
+    <!-- Слайдеры -->
+    <Slider fx:id="slideA" styleClass="number-slider" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <Slider fx:id="slideB" styleClass="number-slider" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <Slider fx:id="slideC" styleClass="number-slider" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+
+</GridPane>
