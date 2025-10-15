@@ -2,13 +2,9 @@ package com.example.oop_lab_3_2;
 
 import java.io.*;
 public class Model {
-
    private int a, b, c;
 
-   public Model(){
-       loadNumbers();
-       if(a == 0 && b == 0 && c == 0){ a = 0; b = 50; c = 100; }
-   }
+   public Model(){ loadNumbers(); }
 
     public int getA(){ return a; }
     public int getB(){ return b; }
@@ -44,9 +40,7 @@ public class Model {
     public void saveNumbers(){
        try(BufferedWriter writeNums = new BufferedWriter(new FileWriter("savedNumbers.txt"))){
            writeNums.write(a + " " + b + " " + c);
-       } catch (IOException e){
-           throw new RuntimeException(e);
-       }
+       } catch (Exception ignored){ }
     }
 
     public void loadNumbers(){
@@ -57,8 +51,6 @@ public class Model {
            a = Integer.parseInt(values[0]);
            b = Integer.parseInt(values[1]);
            c = Integer.parseInt(values[2]);
-       } catch (IOException e){
-           throw new RuntimeException(e);
-       }
+       } catch (Exception ignored){}
     }
 }
