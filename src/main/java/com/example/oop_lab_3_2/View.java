@@ -14,7 +14,7 @@ public class View extends Application {
         controller = loader.getController();
 
         stage.setScene(scene);
-        stage.setTitle("Лабораторная работа №3.1");
+        stage.setTitle("Лабораторная работа №3.2");
         stage.show();
     }
 

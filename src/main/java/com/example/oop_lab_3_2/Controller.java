@@ -2,7 +2,7 @@ package com.example.oop_lab_3_2;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-public class Controller {
+public class Controller implements ModelListener {
 
     private Model model;
     @FXML private TextField textFieldA, textFieldB, textFieldC;
@@ -12,14 +12,17 @@ public class Controller {
     @FXML
     public void initialize() {
         model = new Model();
+        model.addListener(this);
 
         spinnerA.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, model.getA()));
-        spinnerB.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, model.getB()));
         spinnerC.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, model.getC()));
 
-        sliderA.setValue(model.getA());
-        sliderB.setValue(model.getB());
-        sliderC.setValue(model.getC());
+        SpinnerValueFactory.IntegerSpinnerValueFactory factoryB = new SpinnerValueFactory.IntegerSpinnerValueFactory(model.getA(), model.getC(), model.getB());
+        spinnerB.setValueFactory(factoryB);
+
+        sliderA.setMin(0); sliderA.setMax(100); sliderA.setValue(model.getA());
+        sliderB.setMin(model.getA()); sliderB.setMax(model.getC()); sliderB.setValue(model.getB());
+        sliderC.setMin(0); sliderC.setMax(100); sliderC.setValue(model.getC());
 
         textFieldA.setText(String.valueOf(model.getA()));
         textFieldB.setText(String.valueOf(model.getB()));
@@ -29,18 +32,65 @@ public class Controller {
     }
 
     private void addListeners() {
-
         setupTextField(textFieldA, "A");
         setupTextField(textFieldB, "B");
         setupTextField(textFieldC, "C");
 
-        spinnerA.valueProperty().addListener((obs, oldV, newV) -> { model.setA(newV); updateView(); });
-        spinnerB.valueProperty().addListener((obs, oldV, newV) -> { model.setB(newV); updateView(); });
-        spinnerC.valueProperty().addListener((obs, oldV, newV) -> { model.setC(newV); updateView(); });
+        spinnerA.valueProperty().addListener((obs, oldV, newV) -> model.setA(newV));
+        spinnerC.valueProperty().addListener((obs, oldV, newV) -> model.setC(newV));
 
-        sliderA.valueProperty().addListener((obs, oldV, newV) -> { model.setA(newV.intValue()); updateView(); });
-        sliderB.valueProperty().addListener((obs, oldV, newV) -> { model.setB(newV.intValue()); updateView(); });
-        sliderC.valueProperty().addListener((obs, oldV, newV) -> { model.setC(newV.intValue()); updateView(); });
+        spinnerB.valueProperty().addListener((obs, oldV, newV) -> {
+            if (newV < model.getA()) {
+                spinnerB.getValueFactory().setValue(model.getA());
+            } else if (newV > model.getC()) {
+                spinnerB.getValueFactory().setValue(model.getC());
+            } else {
+                model.setB(newV);
+            }
+        });
+
+        sliderA.valueProperty().addListener((obs, oldV, newV) -> model.setA(newV.intValue()));
+        sliderC.valueProperty().addListener((obs, oldV, newV) -> model.setC(newV.intValue()));
+
+        sliderB.valueProperty().addListener((obs, oldV, newV) -> {
+            int value = newV.intValue();
+            if (value < model.getA()) {
+                sliderB.setValue(model.getA());
+            } else if (value > model.getC()) {
+                sliderB.setValue(model.getC());
+            } else {
+                model.setB(value);
+            }
+        });
+    }
+
+    @Override
+    public void onModelChanged() {
+        updateView();
+    }
+
+    private void updateView() {
+        if (!textFieldA.getText().equals(String.valueOf(model.getA())))
+            textFieldA.setText(String.valueOf(model.getA()));
+        if (!textFieldB.getText().equals(String.valueOf(model.getB())))
+            textFieldB.setText(String.valueOf(model.getB()));
+        if (!textFieldC.getText().equals(String.valueOf(model.getC())))
+            textFieldC.setText(String.valueOf(model.getC()));
+
+        spinnerA.getValueFactory().setValue(model.getA());
+        spinnerB.getValueFactory().setValue(model.getB());
+        spinnerC.getValueFactory().setValue(model.getC());
+
+        ((SpinnerValueFactory.IntegerSpinnerValueFactory)spinnerB.getValueFactory()).setMin(model.getA());
+        ((SpinnerValueFactory.IntegerSpinnerValueFactory)spinnerB.getValueFactory()).setMax(model.getC());
+
+        sliderA.setValue(model.getA());
+        sliderB.setValue(model.getB());
+        sliderC.setValue(model.getC());
+    }
+
+    public void save() {
+        model.saveNumbers();
     }
 
     private void setupTextField(TextField tf, String name) {
@@ -66,7 +116,6 @@ public class Controller {
         } catch (NumberFormatException ex) {
             resetTextField(tf, name);
         }
-        updateView();
     }
 
     private void resetTextField(TextField tf, String name) {
@@ -76,20 +125,4 @@ public class Controller {
             case "C": tf.setText(String.valueOf(model.getC())); break;
         }
     }
-
-    private void updateView() {
-        textFieldA.setText(String.valueOf(model.getA()));
-        textFieldB.setText(String.valueOf(model.getB()));
-        textFieldC.setText(String.valueOf(model.getC()));
-
-        spinnerA.getValueFactory().setValue(model.getA());
-        spinnerB.getValueFactory().setValue(model.getB());
-        spinnerC.getValueFactory().setValue(model.getC());
-
-        sliderA.setValue(model.getA());
-        sliderB.setValue(model.getB());
-        sliderC.setValue(model.getC());
-    }
-
-    public void save() { model.saveNumbers(); }
 }
