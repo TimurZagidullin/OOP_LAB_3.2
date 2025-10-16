@@ -17,7 +17,6 @@ public class Model {
        }
     }
     public void setB(int b) {
-        if (b < a) b = a;
         if (b > c) b = c;
         this.b = b;
     }
